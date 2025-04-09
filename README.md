@@ -1,4 +1,6 @@
 Weather Condition Classification Using Image Recognition
+
+
 Part 1: Organizing our Data, 
 Part 2: Building, training, and evaluating baseline, 
 Part 3: Regularize the model, 
