@@ -9,7 +9,9 @@ Part 3: Regularize the model,
 
 Part 4: Building and using a pertained model, 
 
-Part 5: Data Analysis, Part 6: Confusion Matrix 
+Part 5: Data Analysis, 
+
+Part 6: Confusion Matrix 
 
 ## Introduction
 
