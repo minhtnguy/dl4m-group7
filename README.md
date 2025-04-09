@@ -2,9 +2,13 @@ Weather Condition Classification Using Image Recognition
 
 
 Part 1: Organizing our Data, 
+
 Part 2: Building, training, and evaluating baseline, 
+
 Part 3: Regularize the model, 
+
 Part 4: Building and using a pertained model, 
+
 Part 5: Data Analysis, Part 6: Confusion Matrix 
 
 ## Introduction
