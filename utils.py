@@ -1,45 +1,67 @@
-import os
-import numpy as np
-import tensorflow as tf
-import keras
-import matplotlib
+# utils.py
 
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from tqdm import tqdm
 
-def load_training_data(data_path):
-    """
-    Load data for training hotdog detector model.
+# Simple baseline CNN
+class BaselineCNN(nn.Module):
+    def __init__(self, num_classes):
+        super(BaselineCNN, self).__init__()
+        self.model = nn.Sequential(
+            nn.Conv2d(3, 16, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2),
 
-    Parameters
-    ----------
-    data_path : str
-        The root directory where the dataset is stored.
+            nn.Conv2d(16, 32, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2),
 
-    Returns
-    -------
-    image_file_paths : list of str
-        A list of image file paths from the specified dataset.
-    labels : list of int
-        A list of corresponding labels for the image files.
-    """
-    image_file_paths = []
-    labels = []
+            nn.Flatten(),
+            nn.Linear(32 * 56 * 56, 128),
+            nn.ReLU(),
+            nn.Linear(128, num_classes)
+        )
 
-    # TODO
+    def forward(self, x):
+        return self.model(x)
 
-    return image_file_paths, labels
+# Training function
+def train_model(model, train_loader, criterion, optimizer, device):
+    model.train()
+    running_loss = 0.0
 
+    for inputs, labels in tqdm(train_loader, desc="Training"):
+        inputs, labels = inputs.to(device), labels.to(device)
 
-def plot_loss(history):
-    """
-    Plot the training and validation loss and accuracy.
+        optimizer.zero_grad()
+        outputs = model(inputs)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
 
-    Parameters
-    ----------
-    history : keras.callbacks.History
-      The history object returned by the `fit` method of a Keras model.
+        running_loss += loss.item()
 
-    Returns
-    -------
-    None
-    """
-    # TODO
+    return running_loss / len(train_loader)
+
+# Evaluation function
+def evaluate_model(model, test_loader, criterion, device):
+    model.eval()
+    correct = 0
+    total = 0
+    total_loss = 0.0
+
+    with torch.no_grad():
+        for inputs, labels in tqdm(test_loader, desc="Evaluating"):
+            inputs, labels = inputs.to(device), labels.to(device)
+            outputs = model(inputs)
+            loss = criterion(outputs, labels)
+            total_loss += loss.item()
+
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+
+    accuracy = 100 * correct / total
+    return total_loss / len(test_loader), accuracy
