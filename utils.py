@@ -4,6 +4,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from tqdm import tqdm
+import matplotlib.pyplot as plt
 
 # Simple baseline CNN
 class BaselineCNN(nn.Module):
@@ -65,3 +66,28 @@ def evaluate_model(model, test_loader, criterion, device):
 
     accuracy = 100 * correct / total
     return total_loss / len(test_loader), accuracy
+
+# Plot function
+def plot_loss(train_losses, test_losses, accuracies, epochs):
+  plt.figure(figsize=(12, 4))
+
+  # Plot loss
+  plt.subplot(1, 2, 1)
+  plt.plot(range(1, epochs + 1), train_losses, label='Train Loss', marker='o')
+  plt.plot(range(1, epochs + 1), test_losses, label='Test Loss', marker='o')
+  plt.title("Loss over Epochs")
+  plt.xlabel("Epoch")
+  plt.ylabel("Loss")
+  plt.legend()
+
+  # Plot accuracy
+  plt.subplot(1, 2, 2)
+  plt.plot(range(1, epochs + 1), accuracies, label='Test Accuracy', color='green', marker='o')
+  plt.title("Accuracy over Epochs")
+  plt.xlabel("Epoch")
+  plt.ylabel("Accuracy (%)")
+  plt.ylim(0, 100)
+  plt.legend()
+
+  plt.tight_layout()
+  plt.show()
