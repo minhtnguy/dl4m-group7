@@ -5,6 +5,10 @@ import torch.nn as nn
 import torch.optim as optim
 from tqdm import tqdm
 import matplotlib.pyplot as plt
+import torchvision.models as models
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
+import numpy as np
 
 # Simple baseline CNN
 class BaselineCNN(nn.Module):
@@ -91,3 +95,66 @@ def plot_loss(train_losses, test_losses, accuracies, epochs):
 
   plt.tight_layout()
   plt.show()
+  
+    
+# Pre-trained model (ResNet50)
+def create_pretrained_model(num_classes):
+    # Load pre-trained ResNet50
+    model = models.resnet50(weights='IMAGENET1K_V2')
+    
+    # Freeze all layers
+    for param in model.parameters():
+        param.requires_grad = False
+    
+    # Replace the final fully connected layer
+    num_features = model.fc.in_features
+    model.fc = nn.Linear(num_features, num_classes)
+    
+    return model
+
+def plot_confusion_matrix(model, test_loader, classes, device):
+    # Set model to evaluation mode
+    model.eval()
+    
+    # Initialize lists to store predictions and ground truth
+    all_preds = []
+    all_labels = []
+    
+    # Disable gradient calculation for inference
+    with torch.no_grad():
+        for inputs, labels in test_loader:
+            inputs, labels = inputs.to(device), labels.to(device)
+            
+            # Forward pass
+            outputs = model(inputs)
+            _, preds = torch.max(outputs, 1)
+            
+            # Store predictions and labels
+            all_preds.extend(preds.cpu().numpy())
+            all_labels.extend(labels.cpu().numpy())
+    
+    # Calculate confusion matrix
+    cm = confusion_matrix(all_labels, all_preds)
+    
+    # Normalize confusion matrix (optional)
+    cm_normalized = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+    
+    # Plot confusion matrix
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(cm_normalized, annot=True, fmt='.2f', cmap='Blues', 
+                xticklabels=classes, yticklabels=classes)
+    plt.xlabel('Predicted Label')
+    plt.ylabel('True Label')
+    plt.title('Confusion Matrix')
+    plt.tight_layout()
+    plt.show()
+    
+    # Calculate per-class accuracy
+    class_accuracy = cm.diagonal() / cm.sum(axis=1)
+    
+    # Print per-class accuracy
+    print("Per-class accuracy:")
+    for i, class_name in enumerate(classes):
+        print(f"{class_name}: {class_accuracy[i]*100:.2f}%")
+    
+    return cm, class_accuracy

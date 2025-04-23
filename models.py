@@ -2,6 +2,8 @@ import numpy as np
 import tensorflow as tf
 import keras
 import torch.nn as nn
+import torchvision.models as models
+import torch
 
 # Define model based on the baseline
 class weather_model(nn.Module):
@@ -25,6 +27,10 @@ class weather_model(nn.Module):
 
   def forward(self, x):
     return self.model(x)
+  
+
+  
+  
 
 """
 def hotdog_model(input_shape):
