@@ -9,6 +9,9 @@ import torchvision.models as models
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 import numpy as np
+from PIL import Image
+import torchvision.transforms as transforms
+import matplotlib.pyplot as plt
 
 # Simple baseline CNN
 class BaselineCNN(nn.Module):
