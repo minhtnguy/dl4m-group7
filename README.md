@@ -1,61 +1,61 @@
-Weather Condition Classification Using Image Recognition
+**##Project Overview**
+This project uses deep learning to classify outdoor weather conditions from real-world image data. Our goal is to build a model that can accurately recognize and label images as one of seven weather types:
 
+dew, fog/smog, lightning, rain, rainbow, sandstorm, and snow
 
-Part 1: Organizing our Data, 
+The system leverages Convolutional Neural Networks (CNNs), regularization techniques, and transfer learning to achieve robust, accurate performance. Potential real-world applications include meteorology, environmental monitoring, and smart city systems.
 
-Part 2: Building, training, and evaluating baseline, 
+**##Dataset Description**
+Source: https://www.kaggle.com/datasets/jehanbhathena/weather-dataset
 
-Part 3: Regularize the model, Data Augmentation 
+The dataset contains thousands of labeled weather condition images.
 
-Part 4: Building and using a pertained model, 
+We used a subset of 7 specific weather types from the full dataset to ensure balance and clarity.
 
-Part 5: Data Analysis, 
+**##Code Structure**
+dl4m-group7/
+│
+├── main.ipynb                # Main notebook with all experiments (Parts 1–7)
+├── project.py                # Data loading functions
+├── utils.py                  # Training, evaluation, plots, pretrained models
+├── models.py                 # Regularized model architecture
+├── custom-data/              # Folder for demo/test images
+├── data/                     # Weather image dataset
+├── environment.yml           # Conda environment setup
+├── README.md                 # This file
 
-Part 6: Confusion Matrix 
+**##Key Components**
+Part 1: Data loading and preparation
 
-## Introduction
+Part 2: Baseline CNN training
 
-Explain your motivation for pursuing this project. You should include background information on the task.
+Part 3: Regularized model with data augmentation
 
-[Motivation](https://www.youtube.com/watch?v=ACmydtFDTGs&ab_channel=HBO)
+Part 4: Transfer learning using pretrained ResNet50
 
-## Dataset
+Part 5: Data analysis
 
-You do not have to upload the dataset to your GitHub repository, but you should include clear instructions on how to access the data, download it, and set it up in your repository.
+Part 6: Confusion matrix and per-class accuracy
 
-## Model
+Part 7: Custom image demo
 
-Explain the model architecture that your project uses. Be sure to include an architecture diagram here!
+**##Results Summary**
 
-## Using this Repository
+Model	Test Accuracy	Notes
+Baseline CNN	~81%	Overfit; good training, weak generalization
+Regularized CNN	~83.5%	Improved generalization via dropout + weight decay
+Pretrained ResNet (TL)	~89.25%	Best performance; robust and generalizes well
 
-Please provide detailed instructions on how your codebase works. Ideally, someone should be able to recreate your model by following this guide.
+**##Key Findings**
+Data augmentation helped reduce overfitting.
 
-### Requirements
+Transfer learning provided the best accuracy and generalization.
 
-Give instructions on setting up the environment.
+Confusion matrix analysis confirmed improvements across all weather classes, especially rare ones like rainbow and lightning.
 
-```
-conda env create -f environment.yml
-conda activate hotdog
-```
+**##Team Contribution**
 
-### Training the Model
-
-Explain how to train the model using the scripts in your repository.
-
-```
-python train.py
-```
-
-### Using the Model
-
-Explain how to use the model. Show a few examples in your `demo.ipynb`.
-
-## References
-
-You __must__ include references to any papers or GitHub repositories which you used when working on your project.
-
-If you borrowed code from another GitHub repository, you __must__ clearly write in your comments what is outsourced (and from where) and what is your own.
-
-Failure to properly credit external sources constitutes plagarism.
+Member	Role & Contributions
+Rita Tesfay	Data preparation, baseline model, documentation
+Minh Nguyen	Pretrained model integration, result analysis
+Alison Yang	Augmentation setup, visualization, custom image demo
