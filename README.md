@@ -44,11 +44,11 @@ Part 7: Custom image demo
 
 Model	Test Accuracy	Notes
 
-Baseline CNN	~81%	Overfit; good training, weak generalization
+Baseline CNN	~79%	Overfit; good training, weak generalization
 
-Regularized CNN	~83.5%	Improved generalization via dropout + weight decay
+Regularized CNN	~80%	Improved generalization via dropout + weight decay but still very limited
 
-Pretrained ResNet (TL)	~89.25%	Best performance; robust and generalizes well
+Pretrained ResNet (TL)	~94.79%	Best performance; robust and generalizes well
 
 ## **Key Findings**
 Data augmentation helped reduce overfitting.
@@ -61,8 +61,8 @@ Confusion matrix analysis confirmed improvements across all weather classes, esp
 
 **Member Role & Contributions**
 
-Rita Tesfay	Data preparation, baseline model, documentation
+Rita Tesfay -	Data preparation, baseline model, documentation
 
-Minh Nguyen	Pretrained model integration, result analysis
+Minh Nguyen	- Pretrained model integration, custom image demo
 
-Alison Yang	Augmentation setup, visualization, custom image demo
+Alison Yang -	Augmentation setup, visualization, custom image demo
