@@ -23,7 +23,6 @@ dl4m-group7/
 ├── models.py              # Regularized model architecture
 ├── custom-data/           # Folder for demo/test images
 ├── data/                  # Weather image dataset
-├── environment.yml        # Conda environment setup
 ├── README.md              # Project description and documentation
 ```
 ## **Key Components**
