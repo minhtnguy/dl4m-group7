@@ -46,7 +46,7 @@ Model	Test Accuracy	Notes
 
 Baseline CNN	~79%	Overfit; good training, weak generalization
 
-Regularized CNN	~80%	Improved generalization via dropout + weight decay but still very limited
+Regularized CNN	~84%	Improved generalization via dropout + weight decay but still very limited
 
 Pretrained ResNet (TL)	~94.79%	Best performance; robust and generalizes well
 
@@ -65,4 +65,4 @@ Rita Tesfay -	Data preparation, baseline model, documentation
 
 Minh Nguyen	- Pretrained model integration, custom image demo
 
-Alison Yang -	Augmentation setup, visualization, custom image demo
+Alison Yang -	Augmentation setup, visualization, data analysis
